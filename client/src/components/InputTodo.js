@@ -1,5 +1,7 @@
-import React, { Fragment } from "react";
+import React, { Fragment, usestate } from "react";
 const InputTodo = () => {
+    const [description, setDescription] = useState("");
+    
 return (
     <Fragment>
       <h1 className="text-center mt-5">Pern Todo List</h1>
@@ -7,6 +9,8 @@ return (
         <input
           type="text"
           className="form-control"
+          value={description}
+          onChange={e => setDescription(e.target.value)}
           
           
         />
