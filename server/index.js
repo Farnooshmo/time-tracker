@@ -48,7 +48,22 @@ app.get('/todos/:id', async (req, res) => {
 //update a todo
 
 //delete a todo
-
+app.delete('/todos/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleteTodo = await pool.query("DELETE FROM todo WHERE todo_id = $1", [id]);
+    
+    // Check if any rows were affected, indicating a successful deletion
+    if (deleteTodo.rowCount === 1) {
+      res.json({ message: "Todo was deleted!" });
+    } else {
+      res.status(404).json({ message: "Todo not found" });
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 
 app.listen(5001, () => {
