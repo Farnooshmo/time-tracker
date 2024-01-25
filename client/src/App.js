@@ -1,15 +1,17 @@
-import React, { Fragment } from "react";
-import './App.css';
-import InputTodo from "./components/InputTodo";
+import React, { Fragment } from 'react'
+import './App.css'
+import InputTodo from './components/InputTodo'
+import Header from './components/Header'
+
 function App() {
-  return (
-    <Fragment>
-    <div className="container">
-      <InputTodo />
-     
-    </div>
-  </Fragment>
-  );
+	return (
+		<Fragment>
+			<div className='container'>
+				<Header />
+				<InputTodo />
+			</div>
+		</Fragment>
+	)
 }
 
-export default App;
+export default App

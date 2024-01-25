@@ -1,0 +1,105 @@
+.container {
+	background-color: #333333;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: #d9d9d9;
+	margin: 0;
+	height: 100vh;
+}
+
+header {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.5rem;
+	position: fixed;
+	top: 0;
+	z-index: 1000;
+}
+
+.left {
+	/* Styles for header's left section */
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	padding-left: 1rem;
+}
+
+.right {
+	/* Styles for header's right section */
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding-right: 1rem;
+}
+
+h1 {
+	font-size: 1.5rem;
+}
+
+.hamburger-menu {
+	/* Styles for the hamburger menu container */
+}
+
+main {
+	width: 100%;
+	padding: 1rem;
+	box-sizing: border-box;
+}
+
+section {
+	margin: 1rem 0; /* Add space between sections */
+}
+
+/* Placeholder styles for each section */
+.activity-summary {
+	/* Styles for the Activity Summary section */
+}
+
+.add-task {
+	/* Styles for the Add a Task section */
+}
+
+.in-progress {
+	/* Styles for the In Progress section */
+}
+
+.todays-graph {
+	/* Styles for Today's Graph section */
+}
+
+.todays-summary {
+	/* Styles for Today's Summary section */
+}
+
+.this-week-graph {
+	/* Styles for This Week's Graph section */
+}
+
+footer {
+	padding: 1rem;
+	color: white;
+	text-align: center;
+}
+
+/* Media query for larger screens (not the primary focus, but included for potential adjustments) */
+@media screen and (min-width: 600px) {
+	.container {
+		background-color: #333333;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		color: #d9d9d9;
+		margin: 0;
+	}
+
+	main {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 1rem;
+	}
+}
