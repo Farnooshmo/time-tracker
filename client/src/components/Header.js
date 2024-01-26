@@ -7,10 +7,10 @@ import cyftaskmateLogo from '../assets/CYFTASKMATE.svg'
 const Header = () => {
 	return (
 		<header>
-			<div className='left'>
+			<div className='header-left'>
 				<img src={cyftaskmateLogo} alt='CYFTASKMATE Logo' />
 			</div>
-			<div className='right'>
+			<div className='header-right'>
 				<div className='hamburger-menu'>
 					<img src={hamburgerLogo} alt='Hamburger Menu' />
 				</div>
