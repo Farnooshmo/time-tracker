@@ -10,17 +10,13 @@ import Inprogress from './components/Inprogress.js'
 function App() {
 	return (
 		<Fragment>
-			
 			<div className='container'>
 			<Header />
 			<SummaryActivities />
 			<Inprogress />
 			<Footer />
 
-
 			</div>
-			
-			
 		</Fragment>
 	)
 }
