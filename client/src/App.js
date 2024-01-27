@@ -8,14 +8,11 @@ import SummaryActivities from './components/SummaryActivities.js'
 function App() {
 	return (
 		<Fragment>
-			
 			<div className='container'>
-			<Header />
+				<Header />
 				<SummaryActivities />
-
+				<Footer />
 			</div>
-			
-			
 		</Fragment>
 	)
 }
