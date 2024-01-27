@@ -3,6 +3,7 @@ import React from 'react'
 import '../App.css' //* Importing the main styles *//
 import hamburgerLogo from '../assets/Hamburger Menue Logo.svg'
 import cyftaskmateLogo from '../assets/CYFTASKMATE.svg'
+import TaskCurrentTime from './TaskCurrentTime'
 
 const Header = () => {
 	return (
@@ -15,6 +16,7 @@ const Header = () => {
 					<img src={hamburgerLogo} alt='Hamburger Menu' />
 				</div>
 			</div>
+			<TaskCurrentTime />
 		</header>
 	)
 }
