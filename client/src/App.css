@@ -82,11 +82,13 @@ main {
 
 /* Styles for the In Progress component */
 .in-progress {
+	height: 20vh;
 	width: 95%;
 	margin: 0 auto;
-	display: flex;
-	justify-content: space-around;
-	align-items: flex-start;
+	display: grid; /* Use grid display */
+	grid-template-rows: repeat(2, 1fr); /* Two rows with equal height */
+	grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
+	gap: 1rem; /* Add some gap between the grid items */
 	background-color: #ffffff;
 	box-sizing: border-box;
 	border-radius: 10px;
@@ -99,9 +101,32 @@ main {
 	z-index: 1000;
 	border: 2px solid white;
 }
-.text {
-	color: #fabb18;
+
+.in-progress-duration {
+	/* Styles for in-progress-duration (first row, left) */
+	grid-row: 1; /* Display in the first row */
+	grid-column: 1; /* Display in the first column */
+	display: flex;
+	padding: 1rem;
 }
+
+.in-progress-timing {
+	/* Styles for in-progress-timing (first row, right) */
+	grid-row: 1; /* Display in the first row */
+	grid-column: 2; /* Display in the second column */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 1rem;
+}
+
+.input-todo {
+	/* Styles for InputTodo (second row, covers both columns) */
+	grid-row: 2; /* Display in the second row */
+	grid-column: span 2; /* Span across both columns */
+	padding: 1rem;
+}
+
 .todays-graph {
 	/* Styles for Today's Graph section */
 }
@@ -118,12 +143,10 @@ main {
 	font-family: 'Poppins', sans-serif;
 	font-size: 0.75rem;
 	color: #ffffff;
-	position: fixed;
-	top: 180px;
 	z-index: 1000;
 	box-sizing: border-box;
 	position: fixed;
-	top: 180px;
+	top: 350px;
 	z-index: 1000;
 }
 
