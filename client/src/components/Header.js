@@ -1,9 +1,8 @@
-// client/src/components/Header.js
 import React from 'react'
-import '../App.css' //* Importing the main styles *//
+import '../App.css'
 import hamburgerLogo from '../assets/Hamburger Menue Logo.svg'
 import cyftaskmateLogo from '../assets/CYFTASKMATE.svg'
-import TaskCurrentTime from './TaskCurrentTime'
+import CurrentTime from './CurrentTime'
 
 const Header = () => {
 	return (
@@ -11,12 +10,14 @@ const Header = () => {
 			<div className='header-left'>
 				<img src={cyftaskmateLogo} alt='CYFTASKMATE Logo' />
 			</div>
+			<div className='current-time'>
+				<CurrentTime />
+			</div>
 			<div className='header-right'>
 				<div className='hamburger-menu'>
 					<img src={hamburgerLogo} alt='Hamburger Menu' />
 				</div>
 			</div>
-			<TaskCurrentTime />
 		</header>
 	)
 }

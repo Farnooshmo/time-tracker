@@ -41,6 +41,12 @@ h1 {
 	font-size: 1.5rem;
 }
 
+.current-time {
+	font-family: 'Poppins', sans-serif;
+	font-size: 0.65rem;
+	color: #d9d9d9;
+}
+
 .hamburger-menu {
 	/* Styles for the hamburger menu container */
 }
@@ -74,7 +80,7 @@ main {
 	/* Styles for the Add a Task section */
 }
 
-	/* Styles for the In Progress component */
+/* Styles for the In Progress component */
 .in-progress {
 	width: 95%;
 	margin: 0 auto;
@@ -93,7 +99,7 @@ main {
 	z-index: 1000;
 	border: 2px solid white;
 }
-.text{
+.text {
 	color: #fabb18;
 }
 .todays-graph {
