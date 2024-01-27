@@ -100,8 +100,48 @@ main {
 	/* Styles for Today's Graph section */
 }
 
-.todays-summary {
-	/* Styles for Today's Summary section */
+/* Styles for Today's Summary section */
+
+.daily-summary {
+	width: 95%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	border-radius: 10px;
+	overflow: hidden;
+	font-family: 'Poppins', sans-serif;
+	font-size: 0.75rem;
+	color: #ffffff;
+	position: fixed;
+	top: 180px;
+	z-index: 1000;
+	box-sizing: border-box;
+	position: fixed;
+	top: 180px;
+	z-index: 1000;
+}
+
+/* Styles for the line on top of Today's Summary section */
+
+.daily-summary::before {
+	content: '';
+	display: block;
+	width: 90%;
+	height: 1px;
+	background-color: #ffffff;
+	position: absolute;
+	top: 0;
+}
+
+.daily-summary img,
+.daily-summary p,
+.daily-summary h3 {
+	margin: 1rem;
+}
+
+.logo {
+	width: 3vh;
+	height: 3vh;
 }
 
 .this-week-graph {
@@ -116,8 +156,8 @@ footer {
 	position: fixed;
 	bottom: 0;
 	z-index: 1000;
-	box-sizing: border-box; /* Ensure padding and border are included in the width */
-	overflow: hidden; /* Clear any potential overflow */
+	box-sizing: border-box;
+	overflow: hidden;
 	font-family: 'Poppins', sans-serif;
 	font-size: 0.7rem;
 }

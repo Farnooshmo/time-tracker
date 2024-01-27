@@ -5,7 +5,6 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import SummaryActivities from './components/SummaryActivities.js'
 import Inprogress from './components/Inprogress.js'
-
 function App() {
 	return (
 		<Fragment>
@@ -16,6 +15,7 @@ function App() {
 				<InputTodo />
 				<Inprogress/>
 				<Footer />
+
 			</div>
 			
 			
