@@ -4,18 +4,18 @@ import InputTodo from './components/InputTodo'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import SummaryActivities from './components/SummaryActivities.js'
-import TaskStartTimer from './components/TaskStartTimer.js'
 
 function App() {
 	return (
 		<Fragment>
+			
 			<div className='container'>
-				<Header />
+			<Header />
 				<SummaryActivities />
-				{/* <InputTodo /> */}
-				
+
 			</div>
-			<Footer />
+			
+			
 		</Fragment>
 	)
 }
