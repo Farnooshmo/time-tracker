@@ -22,7 +22,6 @@ const InputTodo = () => {
 
 	return (
 		<Fragment>
-			<h1 className='text-center mt-5'>Add a task</h1>
 			<form className='d-flex mt-5' onSubmit={onSubmitForm}>
 				<input
 					type='text'
