@@ -4,16 +4,21 @@ import InputTodo from './components/InputTodo'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import SummaryActivities from './components/SummaryActivities.js'
+import Inprogress from './components/Inprogress.js'
 
 function App() {
 	return (
 		<Fragment>
+			
 			<div className='container'>
-				<Header />
+			<Header />
 				<SummaryActivities />
 				<InputTodo />
+				<Inprogress/>
+				<Footer />
 			</div>
-			<Footer />
+			
+			
 		</Fragment>
 	)
 }
