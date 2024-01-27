@@ -4,6 +4,7 @@ import InputTodo from './components/InputTodo'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import SummaryActivities from './components/SummaryActivities.js'
+import DailySummary from './components/DailySummary.js'
 
 function App() {
 	return (
@@ -12,6 +13,7 @@ function App() {
 				<Header />
 				<SummaryActivities />
 				<InputTodo />
+				<DailySummary />
 			</div>
 			<Footer />
 		</Fragment>
