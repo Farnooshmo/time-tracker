@@ -1,6 +1,6 @@
 import React from 'react'
 import '../App.css'
-import Logo from '../assets/sort-ascending.svg'
+import Logo from '../assets/sortAscending.svg'
 
 const DailySummary = () => {
 	// Variable for today's activity timing will be added here
