@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react'
-import '../App.css' //* Importing the main styles *//
+import '../App.css'
+import Logo from '../assets/squarePlus.svg'
 
 const InputTodo = () => {
 	const [description, setDescription] = useState('')
@@ -22,14 +23,17 @@ const InputTodo = () => {
 
 	return (
 		<Fragment>
-			<form className='d-flex mt-5' onSubmit={onSubmitForm}>
+			<form className='input-todo' onSubmit={onSubmitForm}>
 				<input
 					type='text'
-					className='form-control'
+					className='input-form-control'
+					placeholder='Add a task...'
 					value={description}
 					onChange={(e) => setDescription(e.target.value)}
 				/>
-				<button className='btn btn-success'>Add</button>
+				<button type='submit' className='btn-input'>
+					<img src={Logo} alt='Add Task' onClick={onSubmitForm} />
+				</button>
 			</form>
 		</Fragment>
 	)

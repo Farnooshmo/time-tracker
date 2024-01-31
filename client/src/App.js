@@ -10,13 +10,13 @@ import DailySummary from './components/DailySummary'
 function App() {
 	return (
 		<Fragment>
+			<Header />
 			<div className='container'>
-				<Header />
 				<SummaryActivities />
 				<Inprogress />
 				<DailySummary />
-				<Footer />
 			</div>
+			<Footer />
 		</Fragment>
 	)
 }

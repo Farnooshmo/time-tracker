@@ -6,16 +6,16 @@ const Inprogress = () => {
 	const inProgressDuration = '01:12:45'
 	return (
 		<div className='in-progress'>
+			<InputTodo />
 			<div className='in-progress-duration'>
-				<p>in progress:</p>
-				<h3>{inProgressDuration}</h3>
+				<p>In Progress:</p>
+				<h4>{inProgressDuration}</h4>
 			</div>
 			<div className='in-progress-timing'>
-				<p>Time tracker</p>
+				<p>Time Tracker</p>
 				<StartTimer />
 				<StopTimer />
 			</div>
-			<InputTodo />
 		</div>
 	)
 }
