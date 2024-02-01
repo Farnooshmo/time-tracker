@@ -3,10 +3,13 @@ import StartTimer from "./StartTimer";
 import StopTimer from "./StopTimer";
 
 const ListTodos = () => {
-    const duration = "60 min"
-  const [todos, setTodos] = useState([]);
 
-  const getTodos = async () => {
+//duration will be change
+const duration = "60 min"
+
+const [todos, setTodos] = useState([]);
+
+const getTodos = async () => {
     try {
       const response = await fetch("http://localhost:5001/todos"); 
       const jsonData = await response.json();
@@ -37,11 +40,11 @@ const ListTodos = () => {
         </thead>
         <tbody>
           {todos && todos.map(todo => (
-            <tr key={todo.id}>
+            <tr key={todo.todo_id}>
               <td>{todo.description}</td>
               <td>{duration}</td>
-              <td>Edit bt</td>
-              <td>Delete bt</td>
+              <td><button>Edit</button></td>
+              <td><button>Delete</button></td>
               <td><StartTimer /></td>
               <td><StopTimer /></td>
             </tr>
