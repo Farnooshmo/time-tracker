@@ -2,6 +2,7 @@ import React, { Fragment , useEffect, useState} from "react";
 import StartTimer from "./StartTimer";
 import StopTimer from "./StopTimer";
 import EditTodo from "./EditTodo";
+import DeleteTodo from "./DeleteTodo";
 
 const ListTodos = () => {
 //duration will be change
@@ -13,7 +14,7 @@ const getTodos = async () => {
     try {
       const response = await fetch("http://localhost:5001/todos"); 
       const jsonData = await response.json();
-      setTodos(jsonData);
+      setTodos(jsonData)
     } catch (err) {
       console.error(err.message);
     }
@@ -25,6 +26,10 @@ const getTodos = async () => {
 
   console.log(todos);
 
+  const deleteTodo = (deletedTodoId) => {
+    setTodos(todos.filter(todo => todo.todo_id !== deletedTodoId));
+  };
+ 
   return (
     <Fragment>
       <table>
@@ -44,7 +49,10 @@ const getTodos = async () => {
               <td>{todo.description}</td>
               <td>{duration}</td>
               <td>< EditTodo todo={todo}/></td>
-              <td><button>Delete</button></td>
+              <td><DeleteTodo
+                  todoId={todo.todo_id}
+                  onDelete={deleteTodo}
+                /></td>
               <td><StartTimer /></td>
               <td><StopTimer /></td>
             </tr>
