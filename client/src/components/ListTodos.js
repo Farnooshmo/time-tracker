@@ -1,9 +1,9 @@
 import React, { Fragment , useEffect, useState} from "react";
 import StartTimer from "./StartTimer";
 import StopTimer from "./StopTimer";
+import EditTodo from "./EditTodo";
 
 const ListTodos = () => {
-
 //duration will be change
 const duration = "60 min"
 
@@ -43,7 +43,7 @@ const getTodos = async () => {
             <tr key={todo.todo_id}>
               <td>{todo.description}</td>
               <td>{duration}</td>
-              <td><button>Edit</button></td>
+              <td>< EditTodo todo={todo}/></td>
               <td><button>Delete</button></td>
               <td><StartTimer /></td>
               <td><StopTimer /></td>
