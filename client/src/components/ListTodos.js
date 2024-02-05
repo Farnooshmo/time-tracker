@@ -1,14 +1,12 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import '../App.css'
 import StartTimer from './StartTimer'
 import StopTimer from './StopTimer'
 import EditTodo from './EditTodo'
 import DeleteTodo from './DeleteTodo'
 
 const ListTodos = () => {
-	// Placeholder value for todo duration
+	//duration will be change
 	const duration = '60 min'
-
 	const [todos, setTodos] = useState([])
 
 	const getTodos = async () => {
@@ -33,39 +31,27 @@ const ListTodos = () => {
 
 	return (
 		<Fragment>
-			<table className='list-todos'>
-				<thead>
-					<tr>
-						<th>Description</th>
-						<th>Duration</th>
-						<th>Edit Todo</th>
-						<th>Delete Todo</th>
-						<th>Start </th>
-						<th>Stop</th>
-					</tr>
-				</thead>
-				<tbody>
-					{todos &&
-						todos.map((todo) => (
-							<tr key={todo.todo_id}>
-								<td>{todo.description}</td>
-								<td>{duration}</td>
-								<td>
-									<EditTodo todo={todo} />
-								</td>
-								<td>
-									<DeleteTodo todoId={todo.todo_id} onDelete={deleteTodo} />
-								</td>
-								<td>
+			<div className='list-todos'>
+				{todos &&
+					todos.map((todo) => (
+						<div key={todo.todo_id} className='todo-item'>
+							<div className='todo-description'>{todo.description}</div>
+							<div className='todo-actions'>
+								<div>
+									<p>{duration}</p>
+								</div>
+								<div>
 									<StartTimer />
-								</td>
-								<td>
 									<StopTimer />
-								</td>
-							</tr>
-						))}
-				</tbody>
-			</table>
+								</div>
+								<div>
+									<EditTodo todo={todo} />
+									<DeleteTodo todoId={todo.todo_id} onDelete={deleteTodo} />
+								</div>
+							</div>
+						</div>
+					))}
+			</div>
 		</Fragment>
 	)
 }
