@@ -3,7 +3,7 @@ import '../App.css'
 
 const Footer = () => {
 	return (
-		<footer>
+		<footer className='footer'>
 			<p>
 				©{' '}
 				<a
