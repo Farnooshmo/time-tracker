@@ -4,19 +4,23 @@ import './App.css'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import SummaryActivities from './components/SummaryActivities.js'
-import Inprogress from './components/Inprogress'
-import DailySummary from './components/DailySummary'
+import ListTodos from './components/ListTodos.js'
+import InputTodo from './components/InputTodo.js'
 
 function App() {
 	return (
 		<Fragment>
-			<Header />
 			<div className='container'>
-				<SummaryActivities />
-				<Inprogress />
-				<DailySummary />
+				<Header />
+
+				<main className='main-content'>
+					<SummaryActivities />
+					<InputTodo />
+					<ListTodos />
+				</main>
+
+				<Footer />
 			</div>
-			<Footer />
 		</Fragment>
 	)
 }

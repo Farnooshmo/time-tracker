@@ -6,7 +6,7 @@ import CurrentTime from './CurrentTime'
 
 const Header = () => {
 	return (
-		<header>
+		<header className='header'>
 			<div className='header-left'>
 				<img src={cyftaskmateLogo} alt='CYFTASKMATE Logo' />
 			</div>

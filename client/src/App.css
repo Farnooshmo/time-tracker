@@ -1,110 +1,85 @@
-header {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	order: 1;
-	position: fixed;
-	top: 0;
-}
-
-.header-right,
-.header-left {
-	/* Styles for header's right and left section */
-	padding-left: 1rem;
-	padding-right: 1rem;
-}
-
-.current-time {
-	font-size: 0.5rem;
-	color: #d9d9d9;
-}
-
-.hamburger-menu {
-	/* Styles for the hamburger menu logo */
-}
-
-/* Style for the main container component */
+/* Style for the main container */
 .container {
 	background-color: #333333;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	height: 100vh;
+	min-height: 100vh;
 }
 
-/* Style for the SummaryActivities component */
+/* Style for the main content */
+.main-content {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	overflow-x: hidden;
+	gap: 2rem;
+	width: 90%;
+}
+
+/* Header styles */
+.header {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
+}
+
+.header-right {
+	padding-right: 1rem;
+}
+
+.header-left {
+	padding-left: 1rem;
+}
+
+.current-time {
+	font-size: 0.65rem;
+	color: #d9d9d9;
+}
+
+/* SummaryActivities component styles */
 .summary-box {
-	width: 95%;
+	width: auto;
 	display: flex;
 	justify-content: space-around;
-	align-items: flex-start;
 	background-color: #ffffff;
 	border-radius: 10px;
 	font-size: 0.75rem;
 	color: #484747;
-	position: fixed;
-	top: 50px;
+	margin-top: 10px; /* Adjust as needed */
 }
 
 .daily-activity-section,
-.weekly-activity-section {
-	height: 70px;
+.weekly-activity-section,
+.monthly-activity-section {
+	height: 5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0;
 }
 
-/* Styles for the In Progress component */
-.in-progress {
-	width: 95%;
-	display: grid;
-	grid-template-rows: repeat(3, 1fr);
-	grid-template-columns: 1fr 1fr;
-	height: 25px;
-	justify-content: center;
-	align-items: start;
-	color: #ffffff;
-	position: fixed;
-	top: 150px;
-
-	/* Add a 0.01rem tick line at the top of the In Progress component */
-	&::before {
-		content: '';
-		display: block;
-		width: 100%;
-		height: 1px;
-		background-color: #ffffff;
-		position: absolute;
-	}
-}
-
-.in-progress p {
-	grid-row: 1;
-	grid-column: span 2;
-	font-size: 0.85rem;
-	font-weight: 500;
-}
-
+/* InputTodo component styles */
 .input-todo {
-	/* Styles for InputTodo (second row, covers both columns) */
-	grid-row: 2;
-	grid-column: span 4;
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	gap: 1rem;
-	margin-top: 25px;
 }
 
+/* Styles for input (Add at task...) */
 .input-form-control {
-	/* Styles for input (Add at task...) (second row, covers both columns) */
-	width: 90%;
-	height: 0.75rem;
+	width: 80%;
+	height: 1rem;
 	padding: 0.5rem;
 	border: 1px solid #d9d9d9;
 	border-radius: 5px;
 }
 
+/* Styles for "Add a task" button */
 .btn-input {
-	/* Styles for "Add a task" button */
 	padding: 0.5rem 1rem;
 	border: none;
 	border-radius: 5px;
@@ -113,96 +88,35 @@ header {
 	padding: 0;
 }
 
-.in-progress-duration {
-	/* Styles for in-progress-duration (first row, left) */
-	grid-row: 3;
-	grid-column: span 2;
-	justify-content: flex-start;
-}
-
-.in-progress-timing {
-	/* Styles for in-progress-timing (first row, right) */
-	grid-row: 3;
-	grid-column: span 2;
-	justify-content: flex-start;
-	justify-content: flex-end;
-}
-
-.in-progress-duration,
-.in-progress-timing {
-	/* Styles for in-progress-duration (first row, left) */
+/* DailySummary component styles */
+.list-todos {
+	width: 100%;
 	display: flex;
-	align-items: center;
-	height: 70px;
-	gap: 1rem;
-	font-size: 0.85rem;
-	font-weight: 500;
-}
-
-.todays-graph {
-	/* Styles for Today's Graph section */
-}
-
-/* Styles for Today's Summary section */
-
-.daily-summary {
-	width: 95%;
-	display: flex;
+	flex-direction: column;
 	align-items: center;
 	color: #ffffff;
-	position: fixed;
 	margin-top: 15px;
-	top: 270px;
 	font-size: 0.85rem;
 	font-weight: 500;
 	/* Styles for the line on top of Today's Summary section */
-	&::before {
-		content: '';
-		display: block;
-		width: 90%;
-		height: 1px;
-		background-color: #ffffff;
-		position: absolute;
-		top: 0;
-	}
-}
-
-.daily-summary img,
-.daily-summary p,
-.daily-summary h3 {
-	margin: 1rem;
 }
 
 .logo {
-	width: 3vh;
-	height: 3vh;
+	width: 4vh;
+	height: 7vh;
 }
 
 .this-week-graph {
 	/* Styles for This Week's Graph section */
 }
 
-footer {
+/* Footer component styles */
+.footer {
 	width: 100%;
-	padding: 1rem;
-	color: #d9d9d9;
+	background-color: #333333;
+	color: #ffffff;
 	text-align: center;
-	position: fixed;
-	bottom: 0;
-	z-index: 1000;
-	box-sizing: border-box;
-	overflow: hidden;
-	font-size: 0.7rem;
-
-	/* Add a 0.01rem tick line at the top of the footer */
-	&::before {
-		content: '';
-		display: block;
-		height: 0.01rem;
-		width: 95%;
-		margin: 0 auto;
-		background-color: #d9d9d9;
-	}
+	padding: 10px 0;
 }
 
 .footer-link {
@@ -215,19 +129,16 @@ footer {
 	color: #d9d9d9;
 }
 
-/* Media query for larger screens (not the primary focus, but included for potential adjustments) */
+/* Media query for larger screens */
 @media screen and (min-width: 600px) {
 	.container {
-		background-color: #333333;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		color: #d9d9d9;
-		margin: 0;
 	}
 
-	main {
+	.main-content {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		gap: 1rem;
