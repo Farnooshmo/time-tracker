@@ -29,6 +29,16 @@ const getTodos = async () => {
   const deleteTodo = (deletedTodoId) => {
     setTodos(todos.filter(todo => todo.todo_id !== deletedTodoId));
   };
+
+  const handleStart = (todoId) => {
+    // Implement logic to handle the start event for the specific todo
+    console.log(`Start timer for todo with ID ${todoId}`);
+  };
+
+  const handleStop = (todoId) => {
+    // Implement logic to handle the stop event for the specific todo
+    console.log(`Stop timer for todo with ID ${todoId}`);
+  };
  
   return (
     <Fragment>
@@ -53,8 +63,9 @@ const getTodos = async () => {
                   todoId={todo.todo_id}
                   onDelete={deleteTodo}
                 /></td>
-              <td><StartTimer /></td>
-              <td><StopTimer /></td>
+              <td><StartTimer todoId={todo.todo_id} onStart={() => handleStart(todo.todo_id)} /></td>
+              <td><StopTimer todoId={todo.todo_id} onStop={() => handleStop(todo.todo_id)} /></td>
+              
             </tr>
           ))}
         </tbody>
