@@ -1,6 +1,5 @@
 /* Style for the main container */
 .container {
-	background-color: #333333;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -12,6 +11,7 @@
 	flex: 1;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	overflow-x: hidden;
 	gap: 2rem;
 	width: 90%;
@@ -41,7 +41,7 @@
 
 /* SummaryActivities component styles */
 .summary-box {
-	width: auto;
+	width: 100%;
 	display: flex;
 	justify-content: space-around;
 	background-color: #ffffff;
@@ -88,22 +88,98 @@
 	padding: 0;
 }
 
-/* DailySummary component styles */
+/* ListTodo component styles */
 .list-todos {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	color: #ffffff;
-	margin-top: 15px;
-	font-size: 0.85rem;
-	font-weight: 500;
-	/* Styles for the line on top of Today's Summary section */
+	background-color: #ffffff;
+	border-radius: 10px;
+	list-style: none;
+	overflow-y: auto; /*Add vertical scrollbar if content exceeds height */
+	max-height: 40vh;
 }
 
-.logo {
-	width: 4vh;
-	height: 7vh;
+.todo-item {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+	font-size: 0.85rem;
+	font-weight: 500;
+	margin-left: 0%;
+}
+
+.todo-description {
+	margin: 10px;
+}
+
+.todo-actions {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.todo-actions > div {
+	display: flex;
+}
+
+.todo-actions > div > * {
+	margin: 5px;
+}
+
+/* Style for modal overlay */
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black background */
+	z-index: 1000; /* ensure modal appears on top of other content */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* CSS for modal */
+.modal {
+	background-color: #ffffff;
+	border-radius: 10px;
+	width: 80%;
+	max-width: 500px; /* max width of the modal */
+	padding: 20px;
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+}
+
+.modal-content {
+	display: flex;
+	justify-content: space-between;
+}
+
+/* CSS for form input */
+.form {
+	width: 85%;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+}
+
+/* CSS for save icon */
+.save-icon {
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
 }
 
 .this-week-graph {
@@ -117,6 +193,7 @@
 	color: #ffffff;
 	text-align: center;
 	padding: 10px 0;
+	font-size: 0.75rem;
 }
 
 .footer-link {
@@ -130,17 +207,21 @@
 }
 
 /* Media query for larger screens */
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 800px) {
+	/* Style for the main container */
 	.container {
+		background-color: #333333;
 		display: flex;
-		flex-direction: column;
-		justify-content: center;
+		flex-direction: column; /* Change to column layout */
 		align-items: center;
+		justify-content: center;
+		min-height: 100vh;
 	}
 
 	.main-content {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		display: flex; /* Change to flex layout */
+		flex-direction: column; /* Ensure components stack vertically */
+		align-items: center;
 		gap: 1rem;
 	}
 }
