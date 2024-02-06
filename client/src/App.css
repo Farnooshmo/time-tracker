@@ -71,7 +71,7 @@
 
 /* Styles for input (Add at task...) */
 .input-form-control {
-	width: 80%;
+	width: 100%;
 	height: 1rem;
 	padding: 0.5rem;
 	border: 1px solid #d9d9d9;
@@ -80,12 +80,17 @@
 
 /* Styles for "Add a task" button */
 .btn-input {
-	padding: 0.5rem 1rem;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
 	background-color: #333333;
-	padding: 0;
+	padding-left: 5px;
+	padding-right: 0;
+}
+
+.btn-input img {
+	width: 2.3rem; /* Adjust the size of the button icon */
+	height: 2.3rem;
 }
 
 /* ListTodo component styles */
