@@ -1,12 +1,9 @@
-
 import React, { Fragment, useEffect, useState } from 'react';
 import EditTodo from './EditTodo';
 import DeleteTodo from './DeleteTodo';
 import Timer from './Timer';
 
 const ListTodos = () => {
-  // duration will be change
-  const duration = '60 min';
   const [todos, setTodos] = useState([]);
 
   const getTodos = async () => {
@@ -23,12 +20,9 @@ const ListTodos = () => {
     getTodos();
   }, []);
 
-  console.log(todos);
-
   const deleteTodo = (deletedTodoId) => {
     setTodos(todos.filter((todo) => todo.todo_id !== deletedTodoId));
   };
-
 
   return (
     <Fragment>
@@ -39,9 +33,9 @@ const ListTodos = () => {
               <div className='todo-description'>{todo.description}</div>
               <div className='todo-actions'>
                 <div>
-                  <p>{duration}</p>
+                  <p>Duration: {todo.duration}</p>
                 </div>
-				<Timer />
+                <Timer todo={todo} /> {/* Pass the todo object as a prop */}
                 <div>
                   <EditTodo todo={todo} />
                   <DeleteTodo todoId={todo.todo_id} onDelete={deleteTodo} />
