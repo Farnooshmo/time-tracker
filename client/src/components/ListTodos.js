@@ -63,8 +63,6 @@
 
 
 import React, { Fragment, useEffect, useState } from 'react';
-import StartTimer from './StartTimer';
-import StopTimer from './StopTimer';
 import EditTodo from './EditTodo';
 import DeleteTodo from './DeleteTodo';
 import Timer from './Timer';
@@ -94,15 +92,6 @@ const ListTodos = () => {
     setTodos(todos.filter((todo) => todo.todo_id !== deletedTodoId));
   };
 
-//   const handleStart = (todoId) => {
-//     // Implement logic to handle the start event for the specific todo
-//     console.log(`Start timer for todo with ID ${todoId}`);
-//   };
-
-//   const handleStop = (todoId) => {
-//     // Implement logic to handle the stop event for the specific todo
-//     console.log(`Stop timer for todo with ID ${todoId}`);
-//   };
 
   return (
     <Fragment>
@@ -115,10 +104,6 @@ const ListTodos = () => {
                 <div>
                   <p>{duration}</p>
                 </div>
-                {/* <div>
-                  <StartTimer todoId={todo.todo_id} onStart={() => handleStart(todo.todo_id)} />
-                  <StopTimer todoId={todo.todo_id} onStop={() => handleStop(todo.todo_id)} />
-                </div> */}
 				<Timer />
                 <div>
                   <EditTodo todo={todo} />
