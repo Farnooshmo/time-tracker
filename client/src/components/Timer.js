@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import playerPlay from '../assets/playerPlay.svg';
 import playStop from '../assets/playerStop.svg';
 
-const Timer = () => {
-  const [isTimerRunning, setTimerRunning] = useState(false);
+const Timer = ({ todoId }) => {
+  const [isTracking, setTracking] = useState(false);
   const [startTime, setStartTime] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
 
@@ -15,23 +15,19 @@ const Timer = () => {
   };
 
   const handleStart = () => {
-    if (!isTimerRunning) {
-      setTimerRunning(true);
-      setStartTime(new Date());
-    }
+    setTracking(true);
+    setStartTime(new Date());
   };
 
   const handleStop = () => {
-    if (isTimerRunning) {
-      setTimerRunning(false);
-      const currentTime = new Date();
-      setElapsedTime(Math.floor((currentTime - startTime) / 1000));
-    }
+    setTracking(false);
+    const currentTime = new Date();
+    setElapsedTime(Math.floor((currentTime - startTime) / 1000));
   };
 
   useEffect(() => {
     let intervalId;
-    if (isTimerRunning) {
+    if (isTracking) {
       intervalId = setInterval(() => {
         const currentTime = new Date();
         const elapsedSeconds = Math.floor((currentTime - startTime) / 1000);
@@ -39,7 +35,7 @@ const Timer = () => {
       }, 1000);
     }
     return () => clearInterval(intervalId);
-  }, [isTimerRunning, startTime]);
+  }, [isTracking, startTime]);
 
   return (
     <div>
@@ -55,7 +51,7 @@ const Timer = () => {
         onClick={handleStop}
         style={{ cursor: 'pointer' }}
       />
-      {isTimerRunning ? (
+      {isTracking ? (
         <span>{`Elapsed Time: ${formatTime(elapsedTime)}`}</span>
       ) : (
         elapsedTime > 0 && <span>{`Recorded Time: ${formatTime(elapsedTime)}`}</span>
