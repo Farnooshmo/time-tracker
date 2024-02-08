@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
+import InputTodo from './InputTodo'; // Import InputTodo component
 import EditTodo from './EditTodo';
 import DeleteTodo from './DeleteTodo';
 import Timer from './Timer';
 
 const ListTodos = () => {
-  // duration will be change
   const totalTime = '60 min';
   const [todos, setTodos] = useState([]);
 
@@ -28,9 +28,13 @@ const ListTodos = () => {
     setTodos(todos.filter((todo) => todo.todo_id !== deletedTodoId));
   };
 
+  const addTodo = (newTodo) => {
+    setTodos([...todos, newTodo]); // Add the new todo to the list
+  };
 
   return (
     <Fragment>
+      <InputTodo onTodoAdded={addTodo} /> Pass the addTodo function to InputTodo
       <div className='list-todos'>
         {todos &&
           todos.map((todo) => (
