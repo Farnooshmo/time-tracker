@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import playerPlay from '../assets/playerPlay.svg';
 import playStop from '../assets/playerStop.svg';
 
-const Timer = () => {
+const Timer = ({ todoId }) => {
   const [isTimerRunning, setTimerRunning] = useState(false);
   const [startTime, setStartTime] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
@@ -14,21 +14,49 @@ const Timer = () => {
     return `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
   };
 
-  const handleStart = () => {
+  const handleStart = async () => {
     if (!isTimerRunning) {
-      setTimerRunning(true);
-      setStartTime(new Date());
+      try {
+        const response = await fetch(`http://localhost:5001/todos/${todoId}/start`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        if (response.ok) {
+          setTimerRunning(true);
+          setStartTime(new Date());
+        } else {
+          console.error('Failed to update start time');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   };
 
-  const handleStop = () => {
+  const handleStop = async () => {
     if (isTimerRunning) {
-      setTimerRunning(false);
-      const currentTime = new Date();
-      setElapsedTime(Math.floor((currentTime - startTime) / 1000));
+      try {
+        const response = await fetch(`http://localhost:5001/todos/${todoId}/end`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        if (response.ok) {
+          setTimerRunning(false);
+          const currentTime = new Date();
+          setElapsedTime(Math.floor((currentTime - startTime) / 1000));
+        } else {
+          console.error('Failed to update end time');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   };
-
+  
   useEffect(() => {
     let intervalId;
     if (isTimerRunning) {

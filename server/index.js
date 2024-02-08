@@ -59,6 +59,37 @@ app.put("/todos/:id", async (req, res) => {
   }
   
 });
+//update a todo start time
+app.put("/todos/:id/start", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const startTime = new Date(); // Get current time
+    await pool.query(
+      "UPDATE todo SET start_time = $1 WHERE todo_id = $2", [startTime, id]
+    );
+    res.json({ message: "Todo started", startTime: startTime });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: "Server Error" });
+  }
+});
+
+
+// Update end time for a todo item
+app.put("/todos/:id/end", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const endTime = new Date(); // Get current time
+    await pool.query(
+      "UPDATE todo SET end_time = $1 WHERE todo_id = $2", [endTime, id]
+    );
+    res.json({ message: "Todo ended", endTime: endTime });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: "Server Error" });
+  }
+});
+
   
 //delete a todo
 app.delete('/todos/:id', async (req, res) => {
