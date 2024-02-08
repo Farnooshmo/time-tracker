@@ -5,7 +5,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import SummaryActivities from './components/SummaryActivities.js'
 import ListTodos from './components/ListTodos.js'
-import InputTodo from './components/InputTodo.js'
+// import InputTodo from './components/InputTodo.js'
 
 function App() {
 	return (
@@ -15,7 +15,7 @@ function App() {
 
 				<main className='main-content'>
 					<SummaryActivities />
-					<InputTodo />
+					{/* <InputTodo /> */}
 					<ListTodos />
 				</main>
 
