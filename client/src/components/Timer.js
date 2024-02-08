@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import playerPlay from '../assets/playerPlay.svg';
 import playStop from '../assets/playerStop.svg';
 
-const Timer = () => {
+const Timer = ({ todoId }) => {
   const [isTimerRunning, setTimerRunning] = useState(false);
   const [startTime, setStartTime] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
@@ -14,10 +14,24 @@ const Timer = () => {
     return `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
   };
 
-  const handleStart = () => {
+  const handleStart = async () => {
     if (!isTimerRunning) {
-      setTimerRunning(true);
-      setStartTime(new Date());
+      try {
+        const response = await fetch(`http://localhost:5001/todos/${todoId}/start`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        if (response.ok) {
+          setTimerRunning(true);
+          setStartTime(new Date());
+        } else {
+          console.error('Failed to update start time');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   };
 

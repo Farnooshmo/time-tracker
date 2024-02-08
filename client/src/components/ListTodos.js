@@ -104,7 +104,7 @@ const ListTodos = () => {
                 <div>
                   <p>{duration}</p>
                 </div>
-				<Timer />
+                <Timer todoId={todo.todo_id} />
                 <div>
                   <EditTodo todo={todo} />
                   <DeleteTodo todoId={todo.todo_id} onDelete={deleteTodo} />
