@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react'
 import '../App.css'
 import Logo from '../assets/squarePlus.svg'
 
-const InputTodo = () => {
+const InputTodo = ({ onTodoAdded }) => { // Pass a callback function to handle todo addition
 	const [description, setDescription] = useState('')
 
 	const onSubmitForm = async (e) => {
@@ -14,8 +14,9 @@ const InputTodo = () => {
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(body),
 			})
-
-			//   window.location = "/";
+			const data = await response.json();
+			onTodoAdded(data); // Call the callback function to handle todo addition
+			setDescription(''); // Reset the input field after adding todo
 		} catch (err) {
 			console.error(err.message)
 		}
@@ -32,7 +33,7 @@ const InputTodo = () => {
 					onChange={(e) => setDescription(e.target.value)}
 				/>
 				<button type='submit' className='btn-input'>
-					<img src={Logo} alt='Add Task' onClick={onSubmitForm} />
+					<img src={Logo} alt='Add Task' />
 				</button>
 			</form>
 		</Fragment>
