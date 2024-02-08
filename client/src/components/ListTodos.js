@@ -29,10 +29,9 @@ const ListTodos = () => {
 		setTodos(todos.filter((todo) => todo.todo_id !== deletedTodoId))
 	}
 
-	const addTodo = (newTodo) => {
-		setTodos([...todos, newTodo]) // Add the new todo to the list
-	}
-
+  const addTodo = (newTodo) => {
+    setTodos([newTodo, ...todos]) // Add the new todo at the beginning of the list
+}
 	return (
 		<Fragment>
 			<InputTodo onTodoAdded={addTodo} /> Pass the addTodo function to InputTodo
