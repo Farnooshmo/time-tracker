@@ -35,14 +35,28 @@ const Timer = ({ todoId }) => {
     }
   };
 
-  const handleStop = () => {
+  const handleStop = async () => {
     if (isTimerRunning) {
-      setTimerRunning(false);
-      const currentTime = new Date();
-      setElapsedTime(Math.floor((currentTime - startTime) / 1000));
+      try {
+        const response = await fetch(`http://localhost:5001/todos/${todoId}/end`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        if (response.ok) {
+          setTimerRunning(false);
+          const currentTime = new Date();
+          setElapsedTime(Math.floor((currentTime - startTime) / 1000));
+        } else {
+          console.error('Failed to update end time');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   };
-
+  
   useEffect(() => {
     let intervalId;
     if (isTimerRunning) {

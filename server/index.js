@@ -75,7 +75,7 @@ app.put("/todos/:id/start", async (req, res) => {
 });
 
 
-//update a todo end time
+// Update end time for a todo item
 app.put("/todos/:id/end", async (req, res) => {
   try {
     const { id } = req.params;
