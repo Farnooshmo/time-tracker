@@ -5,6 +5,7 @@ import playStop from '../assets/playerStop.svg';
 const Timer = ({ todoId }) => {
   const [isTimerRunning, setTimerRunning] = useState(false);
   const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
 
   const formatTime = (timeInSeconds) => {
@@ -14,49 +15,20 @@ const Timer = ({ todoId }) => {
     return `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
   };
 
-  const handleStart = async () => {
+  const handleStart = () => {
     if (!isTimerRunning) {
-      try {
-        const response = await fetch(`http://localhost:5001/todos/${todoId}/start`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        if (response.ok) {
-          setTimerRunning(true);
-          setStartTime(new Date());
-        } else {
-          console.error('Failed to update start time');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
+      setTimerRunning(true);
+      setStartTime(new Date());
     }
   };
 
-  const handleStop = async () => {
+  const handleStop = () => {
     if (isTimerRunning) {
-      try {
-        const response = await fetch(`http://localhost:5001/todos/${todoId}/end`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        if (response.ok) {
-          setTimerRunning(false);
-          const currentTime = new Date();
-          setElapsedTime(Math.floor((currentTime - startTime) / 1000));
-        } else {
-          console.error('Failed to update end time');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
+      setTimerRunning(false);
+      setEndTime(new Date());
     }
   };
-  
+
   useEffect(() => {
     let intervalId;
     if (isTimerRunning) {
@@ -68,6 +40,15 @@ const Timer = ({ todoId }) => {
     }
     return () => clearInterval(intervalId);
   }, [isTimerRunning, startTime]);
+
+  // Calculate duration when the timer is stopped
+  useEffect(() => {
+    if (!isTimerRunning && endTime) {
+      const durationInSeconds = Math.floor((endTime - startTime) / 1000);
+      // Now you can handle the duration data as needed, you can log it or send it to the parent component
+      console.log('Duration:', formatTime(durationInSeconds));
+    }
+  }, [isTimerRunning, startTime, endTime]);
 
   return (
     <div>
