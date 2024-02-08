@@ -16,17 +16,13 @@ const Timer = ({ todoId }) => {
   };
 
   const handleStart = () => {
-    if (!isTimerRunning) {
-      setTimerRunning(true);
-      setStartTime(new Date());
-    }
+    setTimerRunning(true);
+    setStartTime(new Date());
   };
 
   const handleStop = () => {
-    if (isTimerRunning) {
-      setTimerRunning(false);
-      setEndTime(new Date());
-    }
+    setTimerRunning(false);
+    setEndTime(new Date());
   };
 
   useEffect(() => {
@@ -37,31 +33,36 @@ const Timer = ({ todoId }) => {
         const elapsedSeconds = Math.floor((currentTime - startTime) / 1000);
         setElapsedTime(elapsedSeconds);
       }, 1000);
+    } else {
+      clearInterval(intervalId);
     }
     return () => clearInterval(intervalId);
   }, [isTimerRunning, startTime]);
 
-  // Calculate duration when the timer is stopped
   useEffect(() => {
+    // Store duration when timer stops
     if (!isTimerRunning && endTime) {
       const durationInSeconds = Math.floor((endTime - startTime) / 1000);
-      // Now you can handle the duration data as needed, you can log it or send it to the parent component
-      console.log('Duration:', formatTime(durationInSeconds));
+      // Send API request to store duration in backend
+      fetch(`http://localhost:5001/todos/${todoId}/end`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ duration: durationInSeconds })
+      })
+        .then(response => response.json())
+        .then(data => console.log(data)) // Log response from backend
+        .catch(error => console.error('Error:', error));
     }
-  }, [isTimerRunning, startTime, endTime]);
+  }, [isTimerRunning, startTime, endTime, todoId]);
 
   return (
     <div>
       <img
-        src={playerPlay}
-        alt='Start Timer'
-        onClick={handleStart}
-        style={{ cursor: 'pointer' }}
-      />
-      <img
-        src={playStop}
-        alt='Stop Timer'
-        onClick={handleStop}
+        src={isTimerRunning ? playStop : playerPlay}
+        alt={isTimerRunning ? 'Stop Timer' : 'Start Timer'}
+        onClick={isTimerRunning ? handleStop : handleStart}
         style={{ cursor: 'pointer' }}
       />
       {isTimerRunning ? (

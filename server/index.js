@@ -74,36 +74,23 @@ app.put('/todos/:id/start', async (req, res) => {
   }
 });
 
-// Update end time and calculate duration for a todo item
 app.put('/todos/:id/end', async (req, res) => {
   try {
     const { id } = req.params;
-    const endTime = new Date(); // Get current time
+    const { duration } = req.body; // Duration sent from the frontend
 
-    // Get the start time from the database
-    const startTimeQuery = await pool.query('SELECT start_time FROM todo WHERE todo_id = $1', [id]);
-    const startTime = startTimeQuery.rows[0].start_time;
-
-    // Calculate the duration using PostgreSQL's date and time functions
-    const durationQuery = await pool.query(
-      'SELECT $1::timestamp - $2::timestamp AS duration',
-      [endTime, startTime]
-    );
-    const durationInSeconds = durationQuery.rows[0].duration;
-
-    // Update the end time and duration columns in the database for the specified todo item
+    // Update end time and duration columns in the database for the specified todo item
     await pool.query(
-      'UPDATE todo SET end_time = $1, duration = $2 WHERE todo_id = $3',
-      [endTime, durationInSeconds, id]
+      'UPDATE todo SET end_time = CURRENT_TIMESTAMP, duration = $1 WHERE todo_id = $2',
+      [duration, id]
     );
 
-    res.json({ message: 'Todo ended', endTime: endTime, duration: durationInSeconds });
+    res.json({ message: 'Todo ended', duration: duration });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ error: 'Server Error' });
   }
 });
-
 // Delete a todo
 app.delete('/todos/:id', async (req, res) => {
   try {
