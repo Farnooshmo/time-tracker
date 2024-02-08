@@ -124,15 +124,32 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-left: 10px;
-	margin-right: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 
-.todo-actions > div {
+.todo-total-time {
+	justify-items: start;
+	margin-left: 5px;
+}
+
+.todo-timer {
 	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
-.todo-actions > div > * {
+.todo-timer * {
+	margin: 5px;
+}
+
+.todo-edit-delet {
+	display: flex;
+	justify-content: space-between;
+	margin-right: 5px;
+}
+
+.todo-edit-delet * {
 	margin: 5px;
 }
 
