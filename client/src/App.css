@@ -96,44 +96,45 @@
 /* ListTodo component styles */
 .list-todos {
 	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	display: grid; /* Change to grid layout */
+	grid-template-columns: 1fr; /* One column for todo items */
+	grid-row-gap: 10px; /* Add gap between rows */
 	background-color: #ffffff;
 	border-radius: 10px;
 	list-style: none;
-	overflow-y: auto; /*Add vertical scrollbar if content exceeds height */
+	overflow-y: auto; /* Add vertical scrollbar if content exceeds height */
 	max-height: 40vh;
 }
 
 .todo-item {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
+	display: grid; /* Change to grid layout */
+	grid-template-rows: auto auto; /* Two rows for description and actions */
 	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 	font-size: 0.85rem;
 	font-weight: 500;
-	margin-left: 0%;
 }
 
 .todo-description {
+	grid-row: 1; /* Place in the first row */
 	margin: 10px;
 }
 
 .todo-actions {
-	display: flex;
-	justify-content: space-between;
+	grid-row: 2; /* Place in the second row */
+	display: grid; /* Change to grid layout */
+	grid-template-columns: auto 1fr auto; /* Three columns for total time, timer, and edit/delete */
 	align-items: center;
-	margin-left: 5px;
-	margin-right: 5px;
+	justify-content: space-between;
+	margin: 5px;
 }
 
 .todo-total-time {
-	justify-items: start;
+	justify-self: start; /* Align to the start of the column */
 	margin-left: 5px;
 }
 
 .todo-timer {
+	grid-column: 2; /* Place in the second column */
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -144,6 +145,7 @@
 }
 
 .todo-edit-delet {
+	grid-column: 3; /* Place in the third column */
 	display: flex;
 	justify-content: space-between;
 	margin-right: 5px;
