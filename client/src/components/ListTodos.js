@@ -1,14 +1,16 @@
+// Import useState and useEffect
 import React, { Fragment, useEffect, useState } from 'react'
 import '../App.css'
-import InputTodo from './InputTodo' // Import InputTodo component
+import InputTodo from './InputTodo'
 import EditTodo from './EditTodo'
 import DeleteTodo from './DeleteTodo'
 import Timer from './Timer'
 
 const ListTodos = () => {
-	const totalTime = '60 min'
+	// Define state variables
 	const [todos, setTodos] = useState([])
 
+	// Function to fetch todos from the server
 	const getTodos = async () => {
 		try {
 			const response = await fetch('http://localhost:5001/todos')
@@ -19,36 +21,51 @@ const ListTodos = () => {
 		}
 	}
 
+	// useEffect hook to fetch todos when component mounts
 	useEffect(() => {
 		getTodos()
 	}, [])
 
-	console.log(todos)
-
+	// Function to delete a todo from the list
 	const deleteTodo = (deletedTodoId) => {
 		setTodos(todos.filter((todo) => todo.todo_id !== deletedTodoId))
 	}
 
+	// Function to add a new todo to the list
 	const addTodo = (newTodo) => {
-		setTodos([newTodo, ...todos]) // Add the new todo at the beginning of the list
+		setTodos([newTodo, ...todos])
 	}
+
 	return (
 		<Fragment>
+			{/* InputTodo component for adding new todos */}
 			<InputTodo onTodoAdded={addTodo} />
-			{/* Pass the addTodo function to InputTodo */}
+
+			{/* Display list of todos */}
 			<div className='list-todos'>
 				{todos &&
 					todos.map((todo) => (
 						<div key={todo.todo_id} className='todo-item'>
 							<div className='todo-description'>{todo.description}</div>
 							<div className='todo-actions'>
+								{/* Display total_time for each todo */}
 								<div className='todo-total-time'>
-									<p> Total: {totalTime} </p>
+									{/* Display total_time in hours and minutes */}
+									<p>
+										Total:{' '}
+										{todo.total_time
+											? `${todo.total_time.hours}h ${todo.total_time.minutes}m`
+											: '0h 0m'}
+									</p>
 								</div>
+
+								{/* Timer component */}
 								<div className='todo-timer'>
 									<Timer todoId={todo.todo_id} />
 								</div>
-								<div className='todo-edit-delet'>
+
+								{/* EditTodo and DeleteTodo components */}
+								<div className='todo-edit-delete'>
 									<EditTodo todo={todo} />
 									<DeleteTodo todoId={todo.todo_id} onDelete={deleteTodo} />
 								</div>
