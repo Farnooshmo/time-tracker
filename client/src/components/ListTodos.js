@@ -29,12 +29,13 @@ const ListTodos = () => {
 		setTodos(todos.filter((todo) => todo.todo_id !== deletedTodoId))
 	}
 
-  const addTodo = (newTodo) => {
-    setTodos([newTodo, ...todos]) // Add the new todo at the beginning of the list
-}
+	const addTodo = (newTodo) => {
+		setTodos([newTodo, ...todos]) // Add the new todo at the beginning of the list
+	}
 	return (
 		<Fragment>
-			<InputTodo onTodoAdded={addTodo} /> Pass the addTodo function to InputTodo
+			<InputTodo onTodoAdded={addTodo} />
+			{/* Pass the addTodo function to InputTodo */}
 			<div className='list-todos'>
 				{todos &&
 					todos.map((todo) => (
@@ -42,7 +43,7 @@ const ListTodos = () => {
 							<div className='todo-description'>{todo.description}</div>
 							<div className='todo-actions'>
 								<div className='todo-total-time'>
-									<p>{totalTime}</p>
+									<p> Total: {totalTime} </p>
 								</div>
 								<div className='todo-timer'>
 									<Timer todoId={todo.todo_id} />
