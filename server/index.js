@@ -172,12 +172,28 @@ app.use(cors());
 app.use(express.json());
 
 // Create Todo
+// app.post('/todos', async (req, res) => {
+//     try {
+//         const { description } = req.body;
+//         const newTodo = await pool.query(
+//             'INSERT INTO todo (description) VALUES($1) RETURNING *',
+//             [description]
+//         );
+
+//         res.json(newTodo.rows[0]);
+//     } catch (err) {
+//         console.error(err.message);
+//         res.status(500).send('Server Error');
+//     }
+// });
+
+// Create Todo
 app.post('/todos', async (req, res) => {
     try {
-        const { description } = req.body;
+        const { description, date } = req.body; // Extract date from the request body
         const newTodo = await pool.query(
-            'INSERT INTO todo (description) VALUES($1) RETURNING *',
-            [description]
+            'INSERT INTO todo (description, date) VALUES($1, $2) RETURNING *', // Include date in the INSERT query
+            [description, date]
         );
 
         res.json(newTodo.rows[0]);
@@ -186,6 +202,7 @@ app.post('/todos', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
 
 // Get All Todos
 app.get('/todos', async (req, res) => {
@@ -230,14 +247,35 @@ app.put('/todos/:id', async (req, res) => {
 });
 
 // Start Todo
+// app.put('/todos/:id/start', async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const start_time = new Date();
+
+//         const updateStart = await pool.query(
+//             'UPDATE todo SET start_time = $1 WHERE todo_id = $2',
+//             [start_time, id]
+//         );
+
+//         res.json({ message: 'Started todo', start_time });
+//     } catch (err) {
+//         console.error(err.message);
+//         res.status(500).json({ error: 'Server error' });
+//     }
+// });
+
+
+
+// Start Todo
 app.put('/todos/:id/start', async (req, res) => {
     try {
         const { id } = req.params;
         const start_time = new Date();
+        const date = start_time.toISOString().split('T')[0]; // Extract date from start_time
 
         const updateStart = await pool.query(
-            'UPDATE todo SET start_time = $1 WHERE todo_id = $2',
-            [start_time, id]
+            'UPDATE todo SET start_time = $1, date = $2 WHERE todo_id = $3',
+            [start_time, date, id]
         );
 
         res.json({ message: 'Started todo', start_time });
@@ -246,6 +284,8 @@ app.put('/todos/:id/start', async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 });
+
+
 
 // End Todo
 app.put('/todos/:id/end', async (req, res) => {
