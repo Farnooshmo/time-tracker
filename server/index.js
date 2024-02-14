@@ -364,6 +364,57 @@ app.delete('/todos/:id', async (req, res) => {
     }
 });
 
+
+// New route handler to fetch total daily time
+app.get('/total-daily-time', async (req, res) => {
+    try {
+        const { rows } = await pool.query(
+            'SELECT COALESCE(SUM(daily_total_time), 0) AS total_daily_time FROM totaldailytime WHERE todo_date = CURRENT_DATE'
+        );
+
+        const { total_daily_time } = rows[0];
+        res.json({ totalDailyTime: total_daily_time });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+
+// New route handler to fetch total weekly time
+app.get('/total-weekly-time', async (req, res) => {
+    try {
+        const { rows } = await pool.query(
+            'SELECT COALESCE(SUM(weekly_total_time), 0) AS total_weekly_time FROM totalweeklytime WHERE week_start_date <= CURRENT_DATE AND week_end_date >= CURRENT_DATE'
+        );
+
+        const { total_weekly_time } = rows[0];
+        res.json({ totalWeeklyTime: total_weekly_time });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+
+// New route handler to fetch total monthly time
+app.get('/total-monthly-time', async (req, res) => {
+    try {
+        const { rows } = await pool.query(
+            'SELECT COALESCE(SUM(monthly_total_time), 0) AS total_monthly_time FROM totalmonthlytime WHERE month = EXTRACT(MONTH FROM CURRENT_DATE) AND year = EXTRACT(YEAR FROM CURRENT_DATE)'
+        );
+
+        const { total_monthly_time } = rows[0];
+        res.json({ totalMonthlyTime: total_monthly_time });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+
+
+
 // Start Server
 app.listen(5001, () => {
     console.log('Server started on port 5001');
