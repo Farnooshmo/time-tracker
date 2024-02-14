@@ -20,10 +20,10 @@ ADD COLUMN total_time interval;
 CREATE TABLE TotalDailyTime (
     id SERIAL PRIMARY KEY,
     todo_date DATE REFERENCES todo(date) ON DELETE CASCADE, //todo_date is foreign key (date) from todo table.
-    total_time INTERVAL
+    daily_total_time INTERVAL
 );
 
- id | todo_date | total_time 
+ id | todo_date | daily_total_time 
 ----+-----------+------------
 (0 rows)
 
@@ -35,11 +35,11 @@ CREATE TABLE TotalWeeklyTime (
     daily_total_time_id INT REFERENCES TotalDailyTime(id) ON DELETE CASCADE,
     week_start_date DATE,
     week_end_date DATE,
-    week_total_time INTERVAL
+    weekly_total_time INTERVAL
 );
 
 
-id | daily_total_time_id | week_start_date | week_end_date | week_total_time 
+id | daily_total_time_id | week_start_date | week_end_date | weekly_total_time 
 ----+---------------------+-----------------+---------------+-----------------
 (0 rows)
 
