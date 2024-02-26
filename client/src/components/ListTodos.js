@@ -52,11 +52,13 @@ const ListTodos = () => {
 								<div className='todo-total-time'>
 									{/* Display total_time in hours and minutes */}
 									<p>
-										Total:{' '}
-										{todo.total_time
-											? `${todo.total_time.hours}h ${todo.total_time.minutes}m ${todo.total_time.seconds}s`
-											: '0h 0m 0s'}
-									</p>
+    Total:{' '}
+    {todo.total_time !== undefined
+        ? `${Math.floor(todo.total_time / 3600)}h ${Math.floor((todo.total_time % 3600) / 60)}m ${todo.total_time % 60}s`
+        : '0h 0m 0s'}
+</p>
+
+
 								</div>
 
 								{/* Timer component */}
