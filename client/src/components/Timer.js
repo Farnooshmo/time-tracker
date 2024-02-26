@@ -16,10 +16,25 @@ const Timer = ({ todoId }) => {
 		return `${hours}h ${minutes}m ${seconds}s`
 	}
 
-	const handleStart = () => {
-		setTimerRunning(true)
-		setStartTime(new Date())
-	}
+	const handleStart = async () => {
+		try {
+			const response = await fetch(`http://localhost:5001/todos/${todoId}/start`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (response.ok) {
+				setTimerRunning(true);
+				setStartTime(new Date());
+			} else {
+				console.error('Failed to start timer');
+			}
+		} catch (error) {
+			console.error('Error:', error);
+		}
+	};
+	
 
 	const handleStop = () => {
 		setTimerRunning(false)
