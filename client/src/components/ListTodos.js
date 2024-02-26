@@ -54,8 +54,8 @@ const ListTodos = () => {
 									<p>
 										Total:{' '}
 										{todo.total_time
-											? `${todo.total_time.hours}h ${todo.total_time.minutes}m`
-											: '0h 0m'}
+											? `${todo.total_time.hours}h ${todo.total_time.minutes}m ${todo.total_time.seconds}s`
+											: '0h 0m 0s'}
 									</p>
 								</div>
 
