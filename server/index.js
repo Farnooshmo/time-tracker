@@ -11,9 +11,11 @@ app.use(express.json());
 // Create Todo
 app.post('/todos', async (req, res) => {
     try {
-        const { description, date } = req.body; // Extract date from the request body
+        const { description } = req.body; // Extract description from the request body
+        const date = new Date().toISOString().split('T')[0]; // Extract current date and format it as YYYY-MM-DD
+
         const newTodo = await pool.query(
-            'INSERT INTO todo (description, date) VALUES($1, $2) RETURNING *', // Include date in the INSERT query
+            'INSERT INTO todo (description, date) VALUES ($1, $2) RETURNING *',
             [description, date]
         );
 
@@ -23,6 +25,8 @@ app.post('/todos', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+
 
 
 // Get All Todos
@@ -126,33 +130,44 @@ app.put('/todos/:id/end', async (req, res) => {
     }
 });
 
-// Update Total Time and daily total
-
 const updateTotalTime = async (todoId) => {
-        try {
-            const { rows } = await pool.query(
-                'SELECT EXTRACT(EPOCH FROM (end_time - start_time)) AS duration FROM todo WHERE todo_id = $1',
-                [todoId]
-            );
-    
-            const durationInSeconds = Math.floor(rows[0].duration) || 0; // Convert duration to integer
-    
-            await pool.query('BEGIN'); // Start transaction
-    
-            // Update total time in seconds
-            await pool.query(
-                'UPDATE todo SET total_time = COALESCE(total_time, 0) + $1 WHERE todo_id = $2',
-                [durationInSeconds, todoId]
-            );
-    
-            await pool.query('COMMIT'); // Commit transaction
-    
-            console.log('Total time updated successfully');
-        } catch (err) {
-            await pool.query('ROLLBACK'); // Rollback transaction on error
-            console.error('Error updating total time: ', err.message);
-        }
-    };
+    try {
+        const { rows } = await pool.query(
+            'SELECT EXTRACT(EPOCH FROM (end_time - start_time)) AS duration FROM todo WHERE todo_id = $1',
+            [todoId]
+        );
+
+        const durationInSeconds = Math.floor(rows[0].duration) || 0; // Convert duration to integer
+
+        await pool.query('BEGIN'); // Start transaction
+
+        // Update total time in seconds
+        await pool.query(
+            'UPDATE todo SET total_time = COALESCE(total_time, 0) + $1 WHERE todo_id = $2',
+            [durationInSeconds, todoId]
+        );
+
+        // Calculate daily total time
+        const { rows: dailyTotalTimeRows } = await pool.query(
+            'SELECT COALESCE(SUM(total_time), 0) AS daily_total_time FROM todo WHERE date = CURRENT_DATE'
+        );
+        const dailyTotalTime = dailyTotalTimeRows[0].daily_total_time || 0;
+
+        // Update daily total time in totaldailytime table
+        await pool.query(
+            'UPDATE totaldailytime SET daily_total_time = $1 WHERE todo_date = CURRENT_DATE',
+            [dailyTotalTime]
+        );
+
+        await pool.query('COMMIT'); // Commit transaction
+
+        console.log('Total time and daily total time updated successfully');
+    } catch (err) {
+        await pool.query('ROLLBACK'); // Rollback transaction on error
+        console.error('Error updating total time and daily total time: ', err.message);
+    }
+};
+
     
 
 
