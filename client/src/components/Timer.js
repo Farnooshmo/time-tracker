@@ -23,18 +23,23 @@ const Timer = ({ todoId }) => {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-			});
+			})
+			console.log('Response from server:', response) // Log the response object
 			if (response.ok) {
-				setTimerRunning(true);
-				setStartTime(new Date());
+				setTimerRunning(true)
+				setStartTime(new Date())
 			} else {
-				console.error('Failed to start timer');
+				console.error('Failed to start timer')
 			}
 		} catch (error) {
-			console.error('Error:', error);
+			console.error('Error:', error)
 		}
-	};
-	
+		console.log('isTimerRunning after handleStart:', isTimerRunning)
+	}
+
+	useEffect(() => {
+		console.log('isTimerRunning inside useEffect:', isTimerRunning)
+	}, [isTimerRunning])
 
 	const handleStop = () => {
 		setTimerRunning(false)
@@ -52,6 +57,7 @@ const Timer = ({ todoId }) => {
 		} else {
 			clearInterval(intervalId)
 		}
+		console.log('elapsedTime:', elapsedTime)
 		return () => clearInterval(intervalId)
 	}, [isTimerRunning, startTime])
 
@@ -78,7 +84,10 @@ const Timer = ({ todoId }) => {
 			<img
 				src={isTimerRunning ? playStop : playerPlay}
 				alt={isTimerRunning ? 'Stop Timer' : 'Start Timer'}
-				onClick={isTimerRunning ? handleStop : handleStart}
+				onClick={() => {
+					console.log('Clicked on play button')
+					isTimerRunning ? handleStop() : handleStart()
+				}}
 				style={{ cursor: 'pointer' }}
 			/>
 			{isTimerRunning ? (
