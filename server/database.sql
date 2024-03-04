@@ -12,6 +12,8 @@ ADD COLUMN duration INTERVAL;
 ALTER TABLE todo
 ADD COLUMN total_time interval;
 
+ALTER TABLE todo
+ADD COLUMN today_activity INTERVAL;
 
 
 //totalDailyTime:

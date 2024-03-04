@@ -250,7 +250,63 @@ app.get('/total-monthly-time', async (req, res) => {
 });
 
 
+// Calculate and update total activity time for a specific day
+app.put('/calculate-todays-activity', async (req, res) => {
+    try {
+        const { date } = req.body; // Extract date from request body
 
+        // Validate date format
+        if (!isValidDate(date)) {
+            return res.status(400).json({ error: 'Invalid date format. Date should be in YYYY-MM-DD format.' });
+        }
+
+        // Retrieve tasks for the specified date from the database
+        const tasks = await pool.query('SELECT * FROM todo WHERE date = $1', [date]);
+
+        // Calculate total activity time for all tasks in seconds
+        let totalActivityTimeSeconds = 0;
+        tasks.rows.forEach(task => {
+            totalActivityTimeSeconds += task.total_time || 0; // Add total_time for each task (if available)
+        });
+
+        // Format total activity time in hours (optional)
+        const totalActivityTimeHours = totalActivityTimeSeconds / 3600;
+
+        // Update todays_activity column in todo table for the specified date
+        await pool.query('UPDATE todo SET todays_activity = $1 WHERE date = $2', [totalActivityTimeHours, date]);
+
+
+        res.json({ message: 'Total activity time calculated and updated successfully' });
+    } catch (error) {
+        console.error('Error calculating and updating total activity time:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+// Validate date format (YYYY-MM-DD)
+function isValidDate(dateString) {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    return regex.test(dateString);
+}
+
+
+// Update today's activity
+app.put('/todos/today-activity', async (req, res) => {
+    try {
+        const { todayActivity } = req.body;
+
+        // Update today's activity in the database
+        await pool.query(
+            'UPDATE todo SET todays_activity = $1 WHERE date = CURRENT_DATE',
+            [todayActivity]
+        );
+
+        res.json({ message: 'Today\'s activity updated successfully' });
+    } catch (err) {
+        console.error('Error updating today\'s activity: ', err.message);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
 
 // Start Server
 app.listen(5001, () => {
