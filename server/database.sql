@@ -19,20 +19,6 @@ ADD COLUMN today_activity INTEGER;
 
 
 
-//totalWeelyTime:
-
-CREATE TABLE TotalWeeklyTime (
-    id SERIAL PRIMARY KEY,
-    daily_total_time_id INT REFERENCES TotalDailyTime(id) ON DELETE CASCADE,
-    week_start_date DATE,
-    week_end_date DATE,
-    weekly_total_time INTERVAL
-);
-
-
-id | daily_total_time_id | week_start_date | week_end_date | weekly_total_time 
-----+---------------------+-----------------+---------------+-----------------
-(0 rows)
 
 
 
