@@ -151,6 +151,22 @@ const updateTodayActivity = async () => {
         console.error('Error updating today\'s activity: ', err.message);
     }
 };
+// New route handler to fetch total weekly time
+app.get('/total-weekly-time', async (req, res) => {
+    try {
+        const { rows } = await pool.query(
+            'SELECT COALESCE(SUM(total_time), 0) AS total_weekly_time FROM todo WHERE date >= CURRENT_DATE - INTERVAL \'6 days\''
+        );
+
+        const { total_weekly_time } = rows[0];
+        res.json({ totalWeeklyTime: total_weekly_time });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+
 // Delete Todo
 app.delete('/todos/:id', async (req, res) => {
     try {
