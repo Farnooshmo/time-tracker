@@ -172,13 +172,13 @@ const updateTotalTime = async (todoId) => {
 
 
 
-// Reset Total Time Daily
+// Reset Today_activity
 setInterval(async () => {
     try {
-        await pool.query('UPDATE todo SET total_time = 0');
+        await pool.query('UPDATE todo SET today_activity = 0');
         console.log('Total time reset successfully');
     } catch (err) {
-        console.error('Error resetting total time: ', err.message);
+        console.error('Error resetting today_activity: ', err.message);
     }
 }, 24 * 60 * 60 * 1000); // Reset every 24 hours
 
