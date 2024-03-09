@@ -9,7 +9,7 @@ const TotalMonthlyTime = () => {
         const daysOfMonth = []; // Array to store total daily time for each day in the month
         const currentDate = new Date();
         const year = currentDate.getFullYear();
-        const month = currentDate.getMonth() + 1; // JavaScript months are 0-based, so January is 0, February is 1, etc.
+        const month = currentDate.getMonth() + 1;
 
         // Get the number of days in the current month
         const daysInMonth = new Date(year, month, 0).getDate();
