@@ -1,4 +1,3 @@
-
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -25,9 +24,6 @@ app.post('/todos', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
-
-
-
 
 // Get All Todos
 app.get('/todos', async (req, res) => {
@@ -71,26 +67,6 @@ app.put('/todos/:id', async (req, res) => {
     }
 });
 
-
-
-// // Start Todo
-// app.put('/todos/:id/start', async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         const start_time = new Date(); // Get the current timestamp
-//         const date = start_time.toISOString().split('T')[0]; // Extract date from start_time
-
-//         const updateStart = await pool.query(
-//             'UPDATE todo SET start_time = $1, date = $2 WHERE todo_id = $3',
-//             [start_time, date, id]
-//         );
-
-//         res.json({ message: 'Started todo', start_time });
-//     } catch (err) {
-//         console.error(err.message);
-//         res.status(500).json({ error: 'Server error' });
-//     }
-// });
 // Start Todo
 app.put('/todos/:id/start', async (req, res) => {
     try {
@@ -109,8 +85,6 @@ app.put('/todos/:id/start', async (req, res) => {
     }
 });
 
-
-
 // End Todo
 app.put('/todos/:id/end', async (req, res) => {
     try {
@@ -122,6 +96,7 @@ app.put('/todos/:id/end', async (req, res) => {
         );
 
         await updateTotalTime(id); // Update total time after setting end time
+        await updateTodayActivity(); // Update today's activity
 
         res.json({ message: 'Ended todo' });
     } catch (err) {
@@ -130,6 +105,7 @@ app.put('/todos/:id/end', async (req, res) => {
     }
 });
 
+// Function to update total time
 const updateTotalTime = async (todoId) => {
     try {
         const { rows } = await pool.query(
@@ -147,41 +123,34 @@ const updateTotalTime = async (todoId) => {
             [durationInSeconds, todoId]
         );
 
-        // Calculate daily total time
-        const { rows: dailyTotalTimeRows } = await pool.query(
-            'SELECT COALESCE(SUM(total_time), 0) AS daily_total_time FROM todo WHERE date = CURRENT_DATE'
-        );
-        const dailyTotalTime = dailyTotalTimeRows[0].daily_total_time || 0;
-
-        // Update daily total time in totaldailytime table
-        await pool.query(
-            'UPDATE totaldailytime SET daily_total_time = $1 WHERE todo_date = CURRENT_DATE',
-            [dailyTotalTime]
-        );
-
         await pool.query('COMMIT'); // Commit transaction
 
-        console.log('Total time and daily total time updated successfully');
+        console.log('Total time updated successfully');
     } catch (err) {
         await pool.query('ROLLBACK'); // Rollback transaction on error
-        console.error('Error updating total time and daily total time: ', err.message);
+        console.error('Error updating total time: ', err.message);
     }
 };
 
-    
-
-
-
-// Reset Today_activity
-setInterval(async () => {
+// Function to update today's activity
+const updateTodayActivity = async () => {
     try {
-        await pool.query('UPDATE todo SET today_activity = 0');
-        console.log('Total time reset successfully');
-    } catch (err) {
-        console.error('Error resetting today_activity: ', err.message);
-    }
-}, 24 * 60 * 60 * 1000); // Reset every 24 hours
+        const { rows } = await pool.query(
+            'SELECT COALESCE(SUM(total_time), 0) AS today_activity FROM todo WHERE date = CURRENT_DATE'
+        );
 
+        const todayActivity = Math.floor(rows[0].today_activity) || 0; 
+
+        await pool.query(
+            'UPDATE todo SET today_activity = $1 WHERE date = CURRENT_DATE',
+            [todayActivity]
+        );
+
+        console.log('Today\'s activity updated successfully');
+    } catch (err) {
+        console.error('Error updating today\'s activity: ', err.message);
+    }
+};
 // Delete Todo
 app.delete('/todos/:id', async (req, res) => {
     try {
@@ -201,112 +170,6 @@ app.delete('/todos/:id', async (req, res) => {
     }
 });
 
-
-// New route handler to fetch total daily time
-app.get('/total-daily-time', async (req, res) => {
-    try {
-        const { rows } = await pool.query(
-            'SELECT COALESCE(SUM(daily_total_time), 0) AS total_daily_time FROM totaldailytime WHERE todo_date = CURRENT_DATE'
-        );
-
-        const { total_daily_time } = rows[0];
-        res.json({ totalDailyTime: total_daily_time });
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).json({ error: 'Server error' });
-    }
-});
-
-
-// New route handler to fetch total weekly time
-app.get('/total-weekly-time', async (req, res) => {
-    try {
-        const { rows } = await pool.query(
-            'SELECT COALESCE(SUM(weekly_total_time), 0) AS total_weekly_time FROM totalweeklytime WHERE week_start_date <= CURRENT_DATE AND week_end_date >= CURRENT_DATE'
-        );
-
-        const { total_weekly_time } = rows[0];
-        res.json({ totalWeeklyTime: total_weekly_time });
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).json({ error: 'Server error' });
-    }
-});
-
-
-// New route handler to fetch total monthly time
-app.get('/total-monthly-time', async (req, res) => {
-    try {
-        const { rows } = await pool.query(
-            'SELECT COALESCE(SUM(monthly_total_time), 0) AS total_monthly_time FROM totalmonthlytime WHERE month = EXTRACT(MONTH FROM CURRENT_DATE) AND year = EXTRACT(YEAR FROM CURRENT_DATE)'
-        );
-
-        const { total_monthly_time } = rows[0];
-        res.json({ totalMonthlyTime: total_monthly_time });
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).json({ error: 'Server error' });
-    }
-});
-
-
-// Calculate and update total activity time for a specific day
-// app.put('/calculate-todays-activity', async (req, res) => {
-//     try {
-//         const { date } = req.body; // Extract date from request body
-
-//         // Validate date format
-//         if (!isValidDate(date)) {
-//             return res.status(400).json({ error: 'Invalid date format. Date should be in YYYY-MM-DD format.' });
-//         }
-
-//         // Retrieve tasks for the specified date from the database
-//         const tasks = await pool.query('SELECT * FROM todo WHERE date = $1', [date]);
-
-//         // Calculate total activity time for all tasks in seconds
-//         let totalActivityTimeSeconds = 0;
-//         tasks.rows.forEach(task => {
-//             totalActivityTimeSeconds += task.total_time || 0; // Add total_time for each task (if available)
-//         });
-
-//         // Format total activity time in hours (optional)
-//         const totalActivityTimeHours = totalActivityTimeSeconds / 3600;
-
-//         // Update todays_activity column in todo table for the specified date
-//         await pool.query('UPDATE todo SET todays_activity = $1 WHERE date = $2', [totalActivityTimeHours, date]);
-
-
-//         res.json({ message: 'Total activity time calculated and updated successfully' });
-//     } catch (error) {
-//         console.error('Error calculating and updating total activity time:', error);
-//         res.status(500).json({ error: 'Server error' });
-//     }
-// });
-
-// // Validate date format (YYYY-MM-DD)
-// function isValidDate(dateString) {
-//     const regex = /^\d{4}-\d{2}-\d{2}$/;
-//     return regex.test(dateString);
-// }
-
-
-// Update today's activity
-// app.put('/todos/today-activity', async (req, res) => {
-//     try {
-//         const { todayActivity } = req.body;
-
-//         // Update today's activity in the database
-//         await pool.query(
-//             'UPDATE todo SET todays_activity = $1 WHERE date = CURRENT_DATE',
-//             [todayActivity]
-//         );
-
-//         res.json({ message: 'Today\'s activity updated successfully' });
-//     } catch (err) {
-//         console.error('Error updating today\'s activity: ', err.message);
-//         res.status(500).json({ error: 'Server error' });
-//     }
-// });
 
 // Start Server
 app.listen(5001, () => {
