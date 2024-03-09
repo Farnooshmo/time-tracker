@@ -59,7 +59,7 @@ const Timer = ({ todoId }) => {
 		}
 		console.log('elapsedTime:', elapsedTime)
 		return () => clearInterval(intervalId)
-	}, [isTimerRunning, startTime])
+	}, [elapsedTime,isTimerRunning, startTime])
 
 	useEffect(() => {
 		// Store duration when timer stops
@@ -74,7 +74,7 @@ const Timer = ({ todoId }) => {
 				body: JSON.stringify({ duration: durationInSeconds }),
 			})
 				.then((response) => response.json())
-				.then((data) => console.log(data)) // Log response from backend
+				.then((data) => console.log(data)) 
 				.catch((error) => console.error('Error:', error))
 		}
 	}, [isTimerRunning, startTime, endTime, todoId])
