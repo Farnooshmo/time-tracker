@@ -17,15 +17,7 @@ ADD COLUMN today_activity INTEGER;
 
 
 
---  id | todo_date | daily_total_time 
--- ----+-----------+------------
--- (0 rows)
- ALTER TABLE TotalDailyTime
- ALTER COLUMN daily_total_time TYPE INTEGER USING EXTRACT(EPOCH FROM daily_total_time);
-ADD
- id | todo_date | daily_total_time | todo_id 
-----+-----------+------------------+---------
-(0 rows)
+
 
 //totalWeelyTime:
 
