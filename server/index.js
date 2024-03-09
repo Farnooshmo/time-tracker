@@ -166,6 +166,21 @@ app.get('/total-weekly-time', async (req, res) => {
     }
 });
 
+// New route handler to fetch total monthly time
+app.get('/total-monthly-time', async (req, res) => {
+    try {
+        const { rows } = await pool.query(
+            'SELECT COALESCE(SUM(total_time), 0) AS total_monthly_time FROM todo WHERE EXTRACT(YEAR FROM date) = EXTRACT(YEAR FROM CURRENT_DATE) AND EXTRACT(MONTH FROM date) = EXTRACT(MONTH FROM CURRENT_DATE)'
+        );
+
+        const { total_monthly_time } = rows[0];
+        res.json({ totalMonthlyTime: total_monthly_time });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
 
 // Delete Todo
 app.delete('/todos/:id', async (req, res) => {
