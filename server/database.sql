@@ -8,21 +8,14 @@ CREATE TABLE todo (
     end_time TIMESTAMP WITH TIME ZONE,
 );
 ALTER TABLE todo
-ADD COLUMN duration INTERVAL;
+ADD COLUMN duration INTEGER;
 ALTER TABLE todo
-ADD COLUMN total_time interval;
+ADD COLUMN total_time INTEGER;
 
 ALTER TABLE todo
-ADD COLUMN today_activity INTERVAL;
+ADD COLUMN today_activity INTEGER;
 
 
-//totalDailyTime:
-
-CREATE TABLE TotalDailyTime (
-    id SERIAL PRIMARY KEY,
-    todo_date DATE REFERENCES todo(date) ON DELETE CASCADE, //todo_date is foreign key (date) from todo table.
-    daily_total_time INTERVAL
-);
 
 --  id | todo_date | daily_total_time 
 -- ----+-----------+------------
