@@ -65,19 +65,23 @@ The Time Tracker app utilizes the following technologies and frameworks:
 - `GET /total-monthly-time`: Get total monthly activity time.
 - `PUT /calculate-todays-activity`: Calculate and update total activity time for a specific day.
 
-## Contributing
-Contributions to the Video App project are welcome! If you find any issues or want to add new features, please open an issue or submit a pull request.
 
 ## License
 This project is made in cooperation with CodeYourFuture organization.
 
+# contributers:
+https://github.com/Farnooshmo
+https://github.com/Meysam-Arshadi
+https://github.com/elahemortazavi
+
 ## Contact
 For any inquiries or feedback, please contact:
 farnooshmoayeri@gmail.com
-
+meysamarshadi@gmail.com
 emor5680@gmail.com
 
-
+## Contributing
+Contributions to the time tracker web App project are welcome! If you find any issues or want to add new features, please open an issue or submit a pull request.
 
 
 
