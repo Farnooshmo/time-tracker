@@ -31,9 +31,10 @@ const TotalDailyTime = () => {
 
     return (
         <div>
-            <h3>Today's Activity</h3>
+            <h4>Today activity</h4>
+            
             {totalDailyTime !== null ? (
-                <p>{`Total time for today: ${formatTime(totalDailyTime)} `}</p>
+                <p>{formatTime(totalDailyTime)}</p>
             ) : (
                 <p>Loading...</p>
             )}
