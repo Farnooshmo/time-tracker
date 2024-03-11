@@ -6,7 +6,6 @@
 	min-height: 100vh;
 }
 
-/* Style for the main content */
 .main-content {
 	flex: 1;
 	display: flex;
@@ -84,8 +83,7 @@
 	border-radius: 5px;
 	cursor: pointer;
 	background-color: #333333;
-	padding-left: 5px;
-	padding-right: 0;
+	padding : 10px;
 }
 
 .btn-input img {
@@ -103,7 +101,7 @@
 	border-radius: 10px;
 	list-style: none;
 	overflow-y: auto; /* Add vertical scrollbar if content exceeds height */
-	max-height: 40vh;
+	max-height: 40%;
 }
 
 .todo-item {
@@ -144,14 +142,14 @@
 	margin: 5px;
 }
 
-.todo-edit-delet {
+.todo-edit-delete {
 	grid-column: 3; /* Place in the third column */
 	display: flex;
 	justify-content: space-between;
 	margin-right: 5px;
 }
 
-.todo-edit-delet * {
+.todo-edit-delete * {
 	margin: 5px;
 }
 
