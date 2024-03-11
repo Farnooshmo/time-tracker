@@ -40,9 +40,9 @@ const TotalWeeklyTime = () => {
 
   return (
     <div>
-      <h3>Weekly Activity</h3>
+      <h4>Weekly activity</h4>
       {totalWeeklyTime !== null ? (
-        <p>{`Total time for this week: ${formatTime(totalWeeklyTime)} `}</p>
+        <p>{formatTime(totalWeeklyTime)}</p>
       ) : (
         <p>Loading...</p>
       )}
