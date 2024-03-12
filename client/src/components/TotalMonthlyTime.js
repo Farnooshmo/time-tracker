@@ -47,9 +47,9 @@ const TotalMonthlyTime = () => {
 
   return (
     <div>
-      <h3>Monthly Activity</h3>
+      <h4>Monthly activity</h4>
       {totalMonthlyTime !== null ? (
-        <p>{`Total time for this month: ${formatTime(totalMonthlyTime)} `}</p>
+        <p>{formatTime(totalMonthlyTime)} </p>
       ) : (
         <p>Loading...</p>
       )}
