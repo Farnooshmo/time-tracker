@@ -4,9 +4,23 @@ const cors = require('cors');
 const pool = require('./db');
 
 // Middleware
-app.use(cors({
-    origin: 'https://time-tracker-team.vercel.app'
-}));
+//allows requests from origins listed in the allowedOrigins array and blocks requests from all other origins to enforce CORS policies on the server
+const allowedOrigins = [
+    'https://time-tracker-team.vercel.app',
+    'http://localhost:3000' 
+];
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Create Todo
