@@ -4,9 +4,7 @@ const cors = require('cors');
 const pool = require('./db');
 
 // Middleware
-app.use(cors({
-    origin: 'https://time-tracker-team.vercel.app'
-}));
+app.use(cors());
 app.use(express.json());
 
 // Create Todo
