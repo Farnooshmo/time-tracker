@@ -4,9 +4,10 @@ const cors = require('cors');
 const pool = require('./db');
 
 // Middleware
+//allows requests from origins listed in the allowedOrigins array and blocks requests from all other origins to enforce CORS policies on the server
 const allowedOrigins = [
     'https://time-tracker-team.vercel.app',
-    'http://localhost:3000' // Assuming your localhost runs on port 3000
+    'http://localhost:3000' 
 ];
 
 const corsOptions = {
