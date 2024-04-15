@@ -3,7 +3,7 @@ import './App.css'
 
 import Header from './components/Header'
 import Footer from './components/Footer'
-import SummaryActivities from './components/SummaryActivities.js'
+// import SummaryActivities from './components/SummaryActivities.js'
 import ListTodos from './components/ListTodos.js'
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
 				<Header />
 
 				<main className='main-content'>
-					<SummaryActivities />
+					{/* <SummaryActivities /> */}
 					<ListTodos />
 				</main>
 
